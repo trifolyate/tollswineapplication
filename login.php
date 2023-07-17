@@ -19,7 +19,7 @@ if (!empty($_POST['email'])) {
                 if (mysqli_query($con, $sqlUpdate)) {
                     $result = array(
                         "status" => "success",
-                        "message" => "Login successful",
+                        "message" => "Profile Retrieved",
                         "name" => $row['first_name'],
                         "email" => $row['email'],
                         "password" => $row['password']
