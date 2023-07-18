@@ -1,10 +1,12 @@
 <?php
-$con = mysqli_connect("us-cdbr-east-06.cleardb.net", "b34e5df2471635", "6ffed3a5", "heroku_eb7517145b609d1");
-$result = array();
-$result['data'] = array();
-$select = "SELECT * from wine_label where status_completed = 0 ";
-$response = mysqli_query($con, $select);
-while ($row = mysqli_fetch_array($response)) {
+    $con = mysqli_connect("us-cdbr-east-06.cleardb.net", "b34e5df2471635", "6ffed3a5", "heroku_eb7517145b609d1");
+    $result = array();
+    $result['data'] = array();
+    $select = "SELECT * from wine_label where status_completed = 0";
+    $response = mysqli_query($con,$select);
+
+    while($row = mysqli_fetch_array($response))
+    {
         $index['alcohol_content'] = $row['0'];
         $index['bottle_information'] = $row['1'];
         $index['brand_name'] = $row['2'];
@@ -20,11 +22,10 @@ while ($row = mysqli_fetch_array($response)) {
         $index['wine_label_id'] = $row['12'];
         $index['model_number'] = $row['13'];
 
-        array_push($result['data'], $index);
+        array_push($result['data'],$index);
     }
 
-$result['success'] = "1";
-
-echo json_encode($result, JSON_PRETTY_PRINT);
-mysqli_close($con);
+    $result['success'] = "1";
+    echo json_encode($result, JSON_PRETTY_PRINT);
+    mysqli_close($con);
 ?>
