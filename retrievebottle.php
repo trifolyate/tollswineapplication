@@ -1,5 +1,5 @@
 <?php
-if (isset($_POST['id'])) {
+// if (isset($_POST['id'])) {
     $id = $_POST['id'];
     $con = mysqli_connect("us-cdbr-east-06.cleardb.net", "b34e5df2471635", "6ffed3a5", "heroku_eb7517145b609d1");
     $result = array();
@@ -24,7 +24,7 @@ if (isset($_POST['id'])) {
 
         $result['success'] = "1";
     }
-} else $result = array("status" => "failed","message" => "Barcode ID needed");
+// } else $result = array("status" => "failed","message" => "Barcode ID needed");
 
 
 echo json_encode($result, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
