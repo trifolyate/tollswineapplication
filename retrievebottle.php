@@ -7,16 +7,16 @@
     $response = mysqli_query($con,$select);
     while($row = mysqli_fetch_array($response))
     {
-        $index['brand_name'] = $row['1'];
-        $index['test'] = $row['2'];
-        $index['test2'] = $row['3'];
-        $index['test3'] = $row['4'];
-        $index['test4'] = $row['5'];
-        $index['test5'] = $row['6'];
-        $index['test6'] = $row['7'];
-        $index['test7'] = $row['8'];
-        $index['test8'] = $row['9'];
-        $index['test9'] = $row['10'];
+        $index['wine_name'] = $row['11'];
+        $index['vintage'] = $row['10'];
+        $index['region_of_production'] = $row['8'];
+        $index['quantity'] = $row['7'];
+        $index['model_name'] = $row['6'];
+        $index['importer_information'] = $row['5'];
+        $index['grape_variety'] = $row['4'];
+        $index['brand_name'] = $row['3'];
+        $index['bottle_information'] = $row['2'];
+        $index['alcohol_content'] = $row['1'];
 
 
         array_push($result['data'],$index);
