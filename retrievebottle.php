@@ -28,4 +28,6 @@
     $result['success'] = "1";
     echo json_encode($result, JSON_PRETTY_PRINT);
     mysqli_close($con);
+
+    echo "Hello World!";
 ?>

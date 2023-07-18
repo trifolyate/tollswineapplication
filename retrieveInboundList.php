@@ -25,5 +25,4 @@
     echo json_encode($result, JSON_PRETTY_PRINT);
     mysqli_close($con);
 
-    hi
 ?>
