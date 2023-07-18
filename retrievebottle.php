@@ -1,4 +1,6 @@
 <?php
+    error_reporting(E_ALL);
+    ini_set('display_errors', 1);
     $con = mysqli_connect("us-cdbr-east-06.cleardb.net", "b34e5df2471635", "6ffed3a5", "heroku_eb7517145b609d1");
     $result = array();
     $result['data'] = array();
@@ -27,7 +29,7 @@
 
     $result['success'] = "1";
     echo json_encode($result, JSON_PRETTY_PRINT);
-    mysqli_close($con);
 
-    echo "Hello World!";
+    
+
 ?>
