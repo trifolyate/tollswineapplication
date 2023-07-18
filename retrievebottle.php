@@ -3,13 +3,14 @@
     $result = array();
     $result['data'] = array();
     $select = "SELECT * from wine_label where inbound_list_id = '693826083' and status_completed = 0 ";
+    mysqli_set_charset($con, "utf8");
     $response = mysqli_query($con,$select);
-
     while($row = mysqli_fetch_array($response))
     {
         $index['brand_name'] = $row['1'];
         $index['test'] = $row['2'];
         $index['test2'] = $row['3'];
+        $index['test3'] = $row['4'];
 
         array_push($result['data'],$index);
     }
