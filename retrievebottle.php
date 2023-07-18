@@ -21,10 +21,11 @@ if (!empty($_POST['id'])) {
 
 
         array_push($result['data'], $index);
+
+        $result['success'] = "1";
     }
 } else $result = array("status" => "failed","message" => "Barcode ID needed");
 
-$result['success'] = "1";
 
 echo json_encode($result, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
 
