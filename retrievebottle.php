@@ -8,9 +8,8 @@
     while($row = mysqli_fetch_array($response))
     {
         $index['brand_name'] = $row['1'];
-        $index['test1'] = $row['2'];
-        $index['test2'] = $row['3'];
-        $index['test3'] = $row['4'];
+        $index['test'] = $row['2'];
+        
 
 
         array_push($result['data'],$index);
@@ -18,5 +17,7 @@
 
     $result['success'] = "1";
     echo json_encode($result, JSON_PRETTY_PRINT);
+
+    
 
 ?>
