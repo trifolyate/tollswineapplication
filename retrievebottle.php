@@ -1,12 +1,13 @@
 <?php
+if (!empty($_POST['id'])) {
+    $id = $_POST['id'];
     $con = mysqli_connect("us-cdbr-east-06.cleardb.net", "b34e5df2471635", "6ffed3a5", "heroku_eb7517145b609d1");
     $result = array();
     $result['data'] = array();
-    $select = "SELECT * from wine_label where inbound_list_id = '693826083' and status_completed = 0 ";
+    $select = "SELECT * from wine_label where inbound_list_id = '" . $id . "' and status_completed = 0 ";
     mysqli_set_charset($con, "utf8");
-    $response = mysqli_query($con,$select);
-    while($row = mysqli_fetch_array($response))
-    {
+    $response = mysqli_query($con, $select);
+    while ($row = mysqli_fetch_array($response)) {
         $index['wine_name'] = $row['11'];
         $index['vintage'] = $row['10'];
         $index['region_of_production'] = $row['8'];
@@ -19,13 +20,14 @@
         $index['alcohol_content'] = $row['1'];
 
 
-        array_push($result['data'],$index);
+        array_push($result['data'], $index);
     }
+} else $result = array("status" => "failed","message" => "Barcode ID needed");
 
-    $result['success'] = "1";
+$result['success'] = "1";
 
-    echo json_encode($result, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
+echo json_encode($result, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
 
-    
+
 
 ?>
