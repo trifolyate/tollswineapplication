@@ -18,7 +18,7 @@ if (isset($_POST['id'])) {
         $index['brand_name'] = $row['3'];
         $index['bottle_information'] = $row['2'];
         $index['alcohol_content'] = $row['1'];
-
+        $index['wine_label_id'] = $row['0'];
 
         array_push($result['data'], $index);
 
