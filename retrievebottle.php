@@ -7,7 +7,7 @@
 
     while($row = mysqli_fetch_array($response))
     {
-        $index['brand_name'] = $row['0'];
+        $index['brand_name'] = $row['1'];
 
         array_push($result['data'],$index);
     }
