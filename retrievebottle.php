@@ -2,7 +2,7 @@
 $con = mysqli_connect("us-cdbr-east-06.cleardb.net", "b34e5df2471635", "6ffed3a5", "heroku_eb7517145b609d1");
 $result = array();
 $result['data'] = array();
-$select = "SELECT * from wine_label where inbound_list_id = '693826083' and status_completed = 0 ";
+$select = "SELECT * from wine_label where status_completed = 0 ";
 $response = mysqli_query($con, $select);
 if (mysqli_num_rows($response) != 0) {
     while ($row = mysqli_fetch_array($response)) {
