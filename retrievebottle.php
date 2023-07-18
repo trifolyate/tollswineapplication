@@ -9,6 +9,8 @@
     {
         $index['brand_name'] = $row['1'];
         $index['test'] = $row['2'];
+        $index['test3'] = $row['3'];
+        $index['test4'] = $row['4'];
         
 
 
