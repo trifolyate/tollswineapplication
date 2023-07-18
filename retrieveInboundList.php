@@ -7,7 +7,6 @@
 
     while($row = mysqli_fetch_array($response))
     {
-        $index['id'] = $row['0'];
         $index['arrival_date'] = $row['1'];
         $index['departure_date'] = $row['2'];
         $index['exporter'] = $row['3'];

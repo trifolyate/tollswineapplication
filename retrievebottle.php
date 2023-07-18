@@ -13,8 +13,12 @@ while ($row = mysqli_fetch_array($response)) {
         $index['model_name'] = $row['5'];
         $index['quantity'] = $row['6'];
         $index['region_of_production'] = $row['7'];
-        $index['vintage'] = $row['8'];
-        $index['wine_name'] = $row['9'];
+        $index['status_completed'] = $row['8'];
+        $index['vintage'] = $row['9'];
+        $index['wine_name'] = $row['10'];
+        $index['inbound_list_id'] = $row['11'];
+        $index['wine_label_id'] = $row['12'];
+        $index['model_number'] = $row['13'];
 
         array_push($result['data'], $index);
     }
