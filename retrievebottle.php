@@ -9,16 +9,16 @@
 
     while($row = mysqli_fetch_array($response))
     {
-        $index['id'] = $row['0'];
-        $index['arrival_date'] = $row['1'];
-        $index['departure_date'] = $row['2'];
-        $index['exporter'] = $row['3'];
-        $index['handling_agent'] = $row['4'];
-        $index['importer'] = $row['5'];
-        $index['permit_no'] = $row['6'];
-        $index['status_completed'] = $row['7'];
-        $index['t_cartons'] = $row['8'];
-        $index['t_quantity'] = $row['9'];
+        $index['wine_name'] = $row['0'];
+        $index['vintage'] = $row['1'];
+        $index['region_of_production'] = $row['2'];
+        $index['quantity'] = $row['3'];
+        $index['model_name'] = $row['4'];
+        $index['importer_information'] = $row['5'];
+        $index['grape_variety'] = $row['6'];
+        $index['brand_name'] = $row['7'];
+        $index['bottle_information'] = $row['8'];
+        $index['alcohol_content'] = $row['9'];
 
         array_push($result['data'],$index);
     }
