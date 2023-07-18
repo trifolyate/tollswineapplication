@@ -4,8 +4,7 @@ $result = array();
 $result['data'] = array();
 $select = "SELECT * from wine_label where status_completed = 0 ";
 $response = mysqli_query($con, $select);
-if (mysqli_num_rows($response) != 0) {
-    while ($row = mysqli_fetch_array($response)) {
+while ($row = mysqli_fetch_array($response)) {
         $index['alcohol_content'] = $row['0'];
         $index['bottle_information'] = $row['1'];
         $index['brand_name'] = $row['2'];
@@ -19,8 +18,6 @@ if (mysqli_num_rows($response) != 0) {
 
         array_push($result['data'], $index);
     }
-} else
-    $result = array("status" => "failed", "message" => "Bottles Not Found");
 
 $result['success'] = "1";
 
