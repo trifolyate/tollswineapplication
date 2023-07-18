@@ -15,7 +15,6 @@
     }
 
     $result['success'] = "1";
-    echo json_encode($response, JSON_PRETTY_PRINT);
 
     echo json_encode($result, JSON_PRETTY_PRINT);
 
