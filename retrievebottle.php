@@ -10,14 +10,13 @@
         $index['brand_name'] = $row['1'];
         $index['test'] = $row['2'];
         $index['test3'] = $row['3'];
-        $index['test4'] = $row['4'];
-        
-
 
         array_push($result['data'],$index);
     }
 
     $result['success'] = "1";
+    echo json_encode($response, JSON_PRETTY_PRINT);
+
     echo json_encode($result, JSON_PRETTY_PRINT);
 
     
