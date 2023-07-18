@@ -9,7 +9,6 @@
     {
         $index['brand_name'] = $row['1'];
         $index['test'] = $row['2'];
-        $index['test3'] = $row['3'];
 
         array_push($result['data'],$index);
     }
