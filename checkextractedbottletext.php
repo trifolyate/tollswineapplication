@@ -40,7 +40,7 @@ if (isset($_POST['id']) && isset($_POST['text'])) {
 
         // If similarity is greater than or equal to 60% or the original wine name is contained within the extracted text,
         // add the data to the result
-        if ($similarity >= 60 || strpos($text, $wine_name) !== false) {
+        if ($similarity >= 40 || strpos($text, $wine_name) !== false) {
             $index['wine_name'] = $row['11'];
             $index['vintage'] = $row['10'];
             $index['region_of_production'] = $row['8'];
