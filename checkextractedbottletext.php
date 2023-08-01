@@ -11,22 +11,14 @@ if (isset($_POST['id']) && isset($_POST['text'])) {
     mysqli_set_charset($con, "utf8");
     $response = mysqli_query($con, $select);
 
-    // Function to calculate the Cosine similarity between two strings
-    function cosineSimilarity($text1, $text2) {
-        $text1Tokens = explode(' ', $text1);
-        $text2Tokens = explode(' ', $text2);
-
-        $intersection = array_intersect($text1Tokens, $text2Tokens);
-        $dotProduct = count($intersection);
-
-        $magnitude1 = sqrt(count($text1Tokens));
-        $magnitude2 = sqrt(count($text2Tokens));
-
-        if ($magnitude1 == 0 || $magnitude2 == 0) {
+    // Function to calculate the similarity ratio between two strings using Levenshtein distance
+    function similarityRatio($text1, $text2) {
+        $levenshteinDistance = levenshtein($text1, $text2);
+        $maxLength = max(strlen($text1), strlen($text2));
+        if ($maxLength == 0) {
             return 0;
         }
-
-        return $dotProduct / ($magnitude1 * $magnitude2);
+        return 1 - $levenshteinDistance / $maxLength;
     }
 
     // Loop through the database rows and compare with the text
@@ -34,11 +26,11 @@ if (isset($_POST['id']) && isset($_POST['text'])) {
         // Extract data from the row
         $wine_name = $row['11'];
 
-        // Calculate the Cosine similarity between the extracted text and wine name
-        $similarity = cosineSimilarity($text, $wine_name);
+        // Calculate the similarity ratio between the extracted text and wine name
+        $similarity = similarityRatio($text, $wine_name);
 
-        // If similarity is greater than or equal to 0.5 (50% accuracy), add the data to the result
-        if ($similarity >= 0.3) {
+        // If similarity is greater than or equal to 0.5 (50% similarity), add the data to the result
+        if ($similarity >= 0.5) {
             $index['wine_name'] = $wine_name;
             $index['vintage'] = $row['10'];
             $index['region_of_production'] = $row['8'];
