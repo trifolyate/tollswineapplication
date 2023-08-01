@@ -1,3 +1,4 @@
+<?php
 if (isset($_POST['id']) && isset($_POST['text'])) {
     $id = $_POST['id'];
     $text = $_POST['text'];
@@ -67,3 +68,4 @@ if (isset($_POST['id']) && isset($_POST['text'])) {
 }
 
 echo json_encode($result, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
+?>
