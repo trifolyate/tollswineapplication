@@ -6,7 +6,7 @@ if (isset($_POST['id']) && isset($_POST['text'])) {
     $result = array();
     $result['data'] = array();
 
-    // Fetch data from the database
+    // Fetch data from the database, including the brand_name column
     $select = "SELECT * FROM wine_label WHERE inbound_list_id = '$id' AND status_completed = 0 ";
     mysqli_set_charset($con, "utf8");
     $response = mysqli_query($con, $select);
@@ -23,24 +23,24 @@ if (isset($_POST['id']) && isset($_POST['text'])) {
         return $similarityPercentage;
     }
 
-    // Replace \n with a blank space in the extracted text
-    $text = str_replace("\n", " ", $text);
-
     // Loop through the database rows and compare with the text
     while ($row = mysqli_fetch_array($response)) {
         // Extract data from the row
         $wine_name = $row['11'];
+        $brand_name = $row['3'];
 
         // Convert both strings to lowercase for case-insensitive comparison
         $text = strtolower($text);
         $wine_name = strtolower($wine_name);
+        $brand_name = strtolower($brand_name);
 
-        // Calculate the similarity between the extracted text and wine name
-        $similarity = calculateSimilarity($text, $wine_name);
+        // Calculate the similarity between the extracted text and both wine name and brand name
+        $wine_similarity = calculateSimilarity($text, $wine_name);
+        $brand_similarity = calculateSimilarity($text, $brand_name);
 
-        // If similarity is greater than or equal to 60% or the original wine name is contained within the extracted text,
+        // If similarity with wine name or brand name is greater than or equal to 60%,
         // add the data to the result
-        if ($similarity >= 40 || strpos($text, $wine_name) !== false) {
+        if ($wine_similarity >= 40 || $brand_similarity >= 40) {
             $index['wine_name'] = $row['11'];
             $index['vintage'] = $row['10'];
             $index['region_of_production'] = $row['8'];
@@ -48,7 +48,7 @@ if (isset($_POST['id']) && isset($_POST['text'])) {
             $index['model_name'] = $row['6'];
             $index['importer_information'] = $row['5'];
             $index['grape_variety'] = $row['4'];
-            $index['brand_name'] = $row['3'];
+            $index['brand_name'] = $row['3']; // Add brand_name to the result
             $index['bottle_information'] = $row['2'];
             $index['alcohol_content'] = $row['1'];
             $index['wine_label_id'] = $row['0'];
@@ -60,13 +60,17 @@ if (isset($_POST['id']) && isset($_POST['text'])) {
     if (count($result['data']) > 0) {
         $result['success'] = "1";
         $result['extractedtext'] = $text;
-        $result['originalwinename'] = $wine_name;
-        $result['similarityRate'] = $similarity;
+        $result['original_wine_name'] = $wine_name;
+        $result['original_brand_name'] = $brand_name;
+        $result['similarity_wine'] = $wine_similarity;
+        $result['similarity_brand'] = $brand_similarity;
     } else {
         $result['success'] = "0";
         $result['extractedtext'] = $text;
-        $result['originalwinename'] = $wine_name;
-        $result['similarityRate'] = $similarity;
+        $result['original_wine_name'] = $wine_name;
+        $result['original_brand_name'] = $brand_name;
+        $result['similarity_wine'] = $wine_similarity;
+        $result['similarity_brand'] = $brand_similarity;
     }
 } else {
     $result = array("status" => "failed", "message" => "Barcode ID and Text needed");
