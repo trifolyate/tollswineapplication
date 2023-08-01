@@ -10,7 +10,7 @@ if (isset($_POST['inbound_list_id'])) {
     $updateResult = mysqli_query($con, $updateQuery);
 
     if ($updateResult) {
-        $result = array("status" => "success", "message" => "Status updated successfully");
+        $result = array("status" => "success", "message" => "Status updated successfully", "username" => $username );
     } else {
         $result = array("status" => "failed", "message" => "Failed to update status");
     }
