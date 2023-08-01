@@ -13,9 +13,9 @@ if (isset($_POST['id']) && isset($_POST['text'])) {
 
     // Function to calculate the similarity between two strings
     function calculateSimilarity($text1, $text2) {
-        // Convert both strings to lowercase for case-insensitive comparison
-        $text1 = strtolower($text1);
-        $text2 = strtolower($text2);
+        // Replace newlines with spaces and convert both strings to lowercase for case-insensitive comparison
+        $text1 = strtolower(str_replace("\n", ' ', $text1));
+        $text2 = strtolower(str_replace("\n", ' ', $text2));
 
         // Calculate the similarity using the similar_text function
         similar_text($text1, $text2, $similarityPercentage);
@@ -28,11 +28,6 @@ if (isset($_POST['id']) && isset($_POST['text'])) {
         // Extract data from the row
         $wine_name = $row['11'];
         $brand_name = $row['3'];
-
-        // Convert both strings to lowercase for case-insensitive comparison
-        $text = strtolower($text);
-        $wine_name = strtolower($wine_name);
-        $brand_name = strtolower($brand_name);
 
         // Calculate the similarity between the extracted text and both wine name and brand name
         $wine_similarity = calculateSimilarity($text, $wine_name);
