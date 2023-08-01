@@ -39,7 +39,7 @@ if (isset($_POST['id']) && isset($_POST['text'])) {
 
         // If similarity with wine name or brand name is greater than or equal to 60%,
         // add the data to the result
-        if ($wine_similarity >= 40 || $brand_similarity >= 40) {
+        if ($wine_similarity >= 30 || $brand_similarity >= 30) {
             $index['wine_name'] = $row['11'];
             $index['vintage'] = $row['10'];
             $index['region_of_production'] = $row['8'];
