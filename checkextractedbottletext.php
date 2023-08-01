@@ -13,8 +13,8 @@ if (isset($_POST['id']) && isset($_POST['text'])) {
 
     // Function to calculate the Jaccard similarity between two strings (treats strings as sets of words)
     function jaccardSimilarity($text1, $text2) {
-        $words1 = explode("\n", $text1);
-        $words2 = explode("\n", $text2);
+        $words1 = explode("\n", strtolower($text1)); // Convert to lowercase
+        $words2 = explode("\n", strtolower($text2)); // Convert to lowercase
 
         $intersection = array_intersect($words1, $words2);
         $union = array_unique(array_merge($words1, $words2));
@@ -32,8 +32,8 @@ if (isset($_POST['id']) && isset($_POST['text'])) {
         // Calculate the Jaccard similarity between the extracted text and wine name
         $similarity = jaccardSimilarity($text, $wine_name);
 
-        // If similarity is greater than or equal to 0.5 (50% similarity), add the data to the result
-        if ($similarity >= 0.2) {
+        // If similarity is greater than or equal to 0.1 (10% similarity), add the data to the result
+        if ($similarity >= 0.1) {
             $index['wine_name'] = $wine_name;
             $index['vintage'] = $row['10'];
             $index['region_of_production'] = $row['8'];
