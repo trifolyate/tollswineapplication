@@ -7,7 +7,7 @@ if (isset($_POST['id']) && isset($_POST['text'])) {
     $result['data'] = array();
 
     // Fetch data from the database
-    $select = "SELECT * FROM wine_label WHERE inbound_list_id = '$id' AND status_completed = 0 ";  
+    $select = "SELECT * FROM wine_label WHERE inbound_list_id = '$id' AND status_completed = 0 ";
     mysqli_set_charset($con, "utf8");
     $response = mysqli_query($con, $select);
 
@@ -15,14 +15,12 @@ if (isset($_POST['id']) && isset($_POST['text'])) {
     while ($row = mysqli_fetch_array($response)) {
         // Extract data from the row
         $wine_name = $row['11'];
-        $vintage = $row['10'];
 
-        // Use regular expressions to extract wine name and vintage from the text
-        $pattern = "/$wine_name.*$vintage/i"; // Case-insensitive matching
-        if (preg_match($pattern, $text)) {
-            // If wine name and vintage are found in the text, add the data to the result
+        // Perform a case-insensitive search for the wine name in the extracted text
+        if (stripos($text, $wine_name) !== false) {
+            // If wine name is found in the text, add the data to the result
             $index['wine_name'] = $wine_name;
-            $index['vintage'] = $vintage;
+            $index['vintage'] = $row['10'];
             $index['region_of_production'] = $row['8'];
             $index['quantity'] = $row['7'];
             $index['model_name'] = $row['6'];
