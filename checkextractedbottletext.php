@@ -47,7 +47,10 @@ if (isset($_POST['id']) && isset($_POST['text'])) {
             $index['bottle_information'] = $row['2'];
             $index['alcohol_content'] = $row['1'];
             $index['wine_label_id'] = $row['0'];
-
+            $index['similarity_wine'] = $wine_similarity;
+            $index['similarity_brand'] = $brand_similarity;
+            $index['extractedtext'] = $text;
+            
             array_push($result['data'], $index);
         }
     }
