@@ -30,7 +30,7 @@ if (isset($_POST['id']) && isset($_POST['text'])) {
         $similarity = similarityRatio($text, $wine_name);
 
         // If similarity is greater than or equal to 0.5 (50% similarity), add the data to the result
-        if ($similarity >= 0.2) {
+        if ($similarity >= 0.1) {
             $index['wine_name'] = $wine_name;
             $index['vintage'] = $row['10'];
             $index['region_of_production'] = $row['8'];
