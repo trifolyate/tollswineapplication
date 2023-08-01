@@ -23,17 +23,24 @@ if (isset($_POST['id']) && isset($_POST['text'])) {
         return $similarityPercentage;
     }
 
+    // Replace \n with a blank space in the extracted text
+    $text = str_replace("\n", " ", $text);
+
     // Loop through the database rows and compare with the text
     while ($row = mysqli_fetch_array($response)) {
         // Extract data from the row
         $wine_name = $row['11'];
 
+        // Convert both strings to lowercase for case-insensitive comparison
+        $text = strtolower($text);
+        $wine_name = strtolower($wine_name);
+
         // Calculate the similarity between the extracted text and wine name
         $similarity = calculateSimilarity($text, $wine_name);
 
-        // If similarity is greater than or equal to 60% (adjust the threshold as needed),
+        // If similarity is greater than or equal to 60% or the original wine name is contained within the extracted text,
         // add the data to the result
-        if ($similarity >= 60) {
+        if ($similarity >= 60 || strpos($text, $wine_name) !== false) {
             $index['wine_name'] = $wine_name;
             $index['vintage'] = $row['10'];
             $index['region_of_production'] = $row['8'];
