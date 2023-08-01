@@ -63,7 +63,7 @@ if (isset($_POST['id']) && isset($_POST['text'])) {
             $index['similarity_wine'] = $wine_similarity;
             $index['similarity_brand'] = $brand_similarity;
             $index['extractedtext'] = $text;
-            array_push($result['data'], $index);
+            array_push($result['errors'], $index);
         }
     }
 
