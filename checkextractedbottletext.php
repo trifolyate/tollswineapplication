@@ -65,6 +65,7 @@ if (isset($_POST['id']) && isset($_POST['text'])) {
     } else {
         $result['success'] = "0";
         $result['extractedtext'] = $text;
+        $result['originalwinename'] = $wine_name;
         $result['similarityRate'] = $similarity;
     }
 } else {
