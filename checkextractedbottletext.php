@@ -11,14 +11,17 @@ if (isset($_POST['id']) && isset($_POST['text'])) {
     mysqli_set_charset($con, "utf8");
     $response = mysqli_query($con, $select);
 
-    // Function to calculate the similarity ratio between two strings using Levenshtein distance
-    function similarityRatio($text1, $text2) {
-        $levenshteinDistance = levenshtein($text1, $text2);
-        $maxLength = max(strlen($text1), strlen($text2));
-        if ($maxLength == 0) {
-            return 0;
-        }
-        return 1 - $levenshteinDistance / $maxLength;
+    // Function to calculate the Jaccard similarity between two strings (treats strings as sets of words)
+    function jaccardSimilarity($text1, $text2) {
+        $words1 = explode("\n", $text1);
+        $words2 = explode("\n", $text2);
+
+        $intersection = array_intersect($words1, $words2);
+        $union = array_unique(array_merge($words1, $words2));
+
+        $similarity = count($intersection) / count($union);
+
+        return $similarity;
     }
 
     // Loop through the database rows and compare with the text
@@ -26,11 +29,11 @@ if (isset($_POST['id']) && isset($_POST['text'])) {
         // Extract data from the row
         $wine_name = $row['11'];
 
-        // Calculate the similarity ratio between the extracted text and wine name
-        $similarity = similarityRatio($text, $wine_name);
+        // Calculate the Jaccard similarity between the extracted text and wine name
+        $similarity = jaccardSimilarity($text, $wine_name);
 
         // If similarity is greater than or equal to 0.5 (50% similarity), add the data to the result
-        if ($similarity >= 0.05) {
+        if ($similarity >= 0.2) {
             $index['wine_name'] = $wine_name;
             $index['vintage'] = $row['10'];
             $index['region_of_production'] = $row['8'];
