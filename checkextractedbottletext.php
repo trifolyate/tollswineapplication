@@ -11,8 +11,8 @@ if (isset($_POST['id']) && isset($_POST['text'])) {
     mysqli_set_charset($con, "utf8");
     $response = mysqli_query($con, $select);
 
-    // Function to calculate the Dice coefficient between two strings
-    function diceCoefficient($text1, $text2) {
+    // Function to calculate the Jaccard similarity index between two strings
+    function jaccardSimilarity($text1, $text2) {
         $text1Tokens = explode("\n", $text1);
         $text2Tokens = explode("\n", $text2);
 
@@ -23,7 +23,7 @@ if (isset($_POST['id']) && isset($_POST['text'])) {
             return 0;
         }
 
-        return 2 * count($intersection) / (count($text1Tokens) + count($text2Tokens));
+        return count($intersection) / count($union);
     }
 
     // Loop through the database rows and compare with the text
@@ -31,8 +31,8 @@ if (isset($_POST['id']) && isset($_POST['text'])) {
         // Extract data from the row
         $wine_name = $row['11'];
 
-        // Calculate the Dice coefficient between the extracted text and wine name
-        $similarity = diceCoefficient($text, $wine_name);
+        // Calculate the Jaccard similarity index between the extracted text and wine name
+        $similarity = jaccardSimilarity($text, $wine_name);
 
         // If similarity is greater than or equal to 0.3 (30% similarity), add the data to the result
         if ($similarity >= 0.1) {
