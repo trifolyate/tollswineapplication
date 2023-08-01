@@ -60,6 +60,7 @@ if (isset($_POST['id']) && isset($_POST['text'])) {
     if (count($result['data']) > 0) {
         $result['success'] = "1";
         $result['extractedtext'] = $text;
+        $result['originalwinename'] = $wine_name;
         $result['similarityRate'] = $similarity;
     } else {
         $result['success'] = "0";
