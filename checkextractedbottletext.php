@@ -5,6 +5,7 @@ if (isset($_POST['id']) && isset($_POST['text'])) {
     $con = mysqli_connect("us-cdbr-east-06.cleardb.net", "b34e5df2471635", "6ffed3a5", "heroku_eb7517145b609d1");
     $result = array();
     $result['data'] = array();
+    $result['errors'] = array();
 
     // Replace '\n' with a blank space in the extracted text
     $text = str_replace("\n", ' ', $text);
