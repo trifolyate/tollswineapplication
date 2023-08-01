@@ -1,10 +1,11 @@
 <?php
 if (isset($_POST['inbound_list_id'])) {
     $wineinboundlistid = $_POST['inbound_list_id'];
+    $username = $_POST['name'];
     $con = mysqli_connect("us-cdbr-east-06.cleardb.net", "b34e5df2471635", "6ffed3a5", "heroku_eb7517145b609d1");
 
     // Update the status_completed column to 1
-    $updateQuery = "UPDATE inbound_list SET status_completed = 1 WHERE id = '$wineinboundlistid'";
+    $updateQuery = "UPDATE inbound_list SET status_completed = 1, handling_agent = '$username' WHERE id = '$wineinboundlistid'";
     mysqli_set_charset($con, "utf8");
     $updateResult = mysqli_query($con, $updateQuery);
 
