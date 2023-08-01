@@ -16,9 +16,14 @@ if (isset($_POST['id']) && isset($_POST['text'])) {
         // Extract data from the row
         $wine_name = $row['11'];
 
-        // Perform a case-insensitive search for the wine name in the extracted text
-        if (stripos($text, $wine_name) !== false) {
-            // If wine name is found in the text, add the data to the result
+        // Calculate the Levenshtein distance between the extracted text and wine name
+        $levenshtein_distance = levenshtein($text, $wine_name);
+
+        // Calculate the threshold for 50% accuracy (half the length of the wine name)
+        $threshold = strlen($wine_name) / 2;
+
+        // If Levenshtein distance is less than or equal to the threshold, add the data to the result
+        if ($levenshtein_distance <= $threshold) {
             $index['wine_name'] = $wine_name;
             $index['vintage'] = $row['10'];
             $index['region_of_production'] = $row['8'];
