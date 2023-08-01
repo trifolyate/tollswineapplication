@@ -56,6 +56,13 @@ if (isset($_POST['id']) && isset($_POST['text'])) {
             
             array_push($result['data'], $index);
         }
+        else
+        {
+            $index['similarity_wine'] = $wine_similarity;
+            $index['similarity_brand'] = $brand_similarity;
+            $index['extractedtext'] = $text;
+            array_push($result['data'], $index);
+        }
     }
 
     if (count($result['data']) > 0) {
