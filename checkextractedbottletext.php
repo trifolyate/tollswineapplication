@@ -1,10 +1,12 @@
-<?php
 if (isset($_POST['id']) && isset($_POST['text'])) {
     $id = $_POST['id'];
     $text = $_POST['text'];
     $con = mysqli_connect("us-cdbr-east-06.cleardb.net", "b34e5df2471635", "6ffed3a5", "heroku_eb7517145b609d1");
     $result = array();
     $result['data'] = array();
+
+    // Replace '\n' with a blank space in the extracted text
+    $text = str_replace("\n", ' ', $text);
 
     // Fetch data from the database, including the brand_name column
     $select = "SELECT * FROM wine_label WHERE inbound_list_id = '$id' AND status_completed = 0 ";
@@ -13,9 +15,9 @@ if (isset($_POST['id']) && isset($_POST['text'])) {
 
     // Function to calculate the similarity between two strings
     function calculateSimilarity($text1, $text2) {
-        // Replace newlines with spaces and convert both strings to lowercase for case-insensitive comparison
-        $text1 = strtolower(str_replace("\n", ' ', $text1));
-        $text2 = strtolower(str_replace("\n", ' ', $text2));
+        // Convert both strings to lowercase for case-insensitive comparison
+        $text1 = strtolower($text1);
+        $text2 = strtolower($text2);
 
         // Calculate the similarity using the similar_text function
         similar_text($text1, $text2, $similarityPercentage);
@@ -57,22 +59,11 @@ if (isset($_POST['id']) && isset($_POST['text'])) {
 
     if (count($result['data']) > 0) {
         $result['success'] = "1";
-        $result['extractedtext'] = $text;
-        $result['original_wine_name'] = $wine_name;
-        $result['original_brand_name'] = $brand_name;
-        $result['similarity_wine'] = $wine_similarity;
-        $result['similarity_brand'] = $brand_similarity;
     } else {
         $result['success'] = "0";
-        $result['extractedtext'] = $text;
-        $result['original_wine_name'] = $wine_name;
-        $result['original_brand_name'] = $brand_name;
-        $result['similarity_wine'] = $wine_similarity;
-        $result['similarity_brand'] = $brand_similarity;
     }
 } else {
     $result = array("status" => "failed", "message" => "Barcode ID and Text needed");
 }
 
 echo json_encode($result, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
-?>
