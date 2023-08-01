@@ -11,19 +11,16 @@ if (isset($_POST['id']) && isset($_POST['text'])) {
     mysqli_set_charset($con, "utf8");
     $response = mysqli_query($con, $select);
 
-    // Function to calculate the Jaccard similarity index between two strings
-    function jaccardSimilarity($text1, $text2) {
-        $text1Tokens = explode("\n", $text1);
-        $text2Tokens = explode("\n", $text2);
+    // Function to calculate the similarity between two strings
+    function calculateSimilarity($text1, $text2) {
+        // Convert both strings to lowercase for case-insensitive comparison
+        $text1 = strtolower($text1);
+        $text2 = strtolower($text2);
 
-        $intersection = array_intersect($text1Tokens, $text2Tokens);
-        $union = array_unique(array_merge($text1Tokens, $text2Tokens));
+        // Calculate the similarity using the similar_text function
+        similar_text($text1, $text2, $similarityPercentage);
 
-        if (count($union) == 0) {
-            return 0;
-        }
-
-        return count($intersection) / count($union);
+        return $similarityPercentage;
     }
 
     // Loop through the database rows and compare with the text
@@ -31,11 +28,12 @@ if (isset($_POST['id']) && isset($_POST['text'])) {
         // Extract data from the row
         $wine_name = $row['11'];
 
-        // Calculate the Jaccard similarity index between the extracted text and wine name
-        $similarity = jaccardSimilarity($text, $wine_name);
+        // Calculate the similarity between the extracted text and wine name
+        $similarity = calculateSimilarity($text, $wine_name);
 
-        // If similarity is greater than or equal to 0.3 (30% similarity), add the data to the result
-        if ($similarity >= 0.1) {
+        // If similarity is greater than or equal to 60% (adjust the threshold as needed),
+        // add the data to the result
+        if ($similarity >= 60) {
             $index['wine_name'] = $wine_name;
             $index['vintage'] = $row['10'];
             $index['region_of_production'] = $row['8'];
