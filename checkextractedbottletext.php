@@ -62,7 +62,7 @@ if (isset($_POST['id']) && isset($_POST['text'])) {
         $result['success'] = "1";
     } else {
         $result['success'] = "0";
-        $index['extractedtext'] = $text;
+        $result['extractedtext'] = $text;
     }
 } else {
     $result = array("status" => "failed", "message" => "Barcode ID and Text needed");
